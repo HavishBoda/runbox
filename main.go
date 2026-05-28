@@ -80,25 +80,21 @@ func runCode(code string) (string, error) {
 func main() {
     godotenv.Load()
 
-    messages := []Message{
-        {Role: "user", Content: "Write a Python function that prints hello world. Return only the code, no explanation, no markdown."},
-    }
-
-    response, err := callLLM(messages)
+	code needed
+    result, err := runAgent("Calculate the sum of all even numbers between 1 and 100")
     if err != nil {
         fmt.Fprintf(os.Stderr, "error: %v\n", err)
         os.Exit(1)
     }
-	
-	// remove any backticks or formatting from code 
-	code := extractCode(response)
-    fmt.Println(code)
 
-	// run sandboxed code
-	output, err := runCode(code)
+	fmt.Println("Result:", result)
+
+	// factual, no code needed
+	result, err = runAgent("What is the capital of France")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-	fmt.Println("Output:", output)
+        fmt.Fprintf(os.Stderr, "error: %v\n", err)
+        os.Exit(1)
+    }
+
+    fmt.Println("Result:", result)
 }
