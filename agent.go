@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func runAgent(task string) (string, error) {
+func runAgent(task string, onUpdate func(string)) (string, error) {
 	prompt := "You are an agent that solves tasks by writing Python code or answering factual questions. " +
     "When you need to write code, wrap it in <code>, </code> tags. " +
     "When the task is complete, respond with <done> followed by the final answer in plain text. " +
@@ -28,6 +28,7 @@ func runAgent(task string) (string, error) {
 
 		// add LLM response to messages list
 		messages = append(messages, Message{Role: "assistant", Content: response})
+		onUpdate(response)
 
 		// check for <done>, return answer
 		if strings.Contains(response, "<done>") {
@@ -45,6 +46,7 @@ func runAgent(task string) (string, error) {
 				return "", err
 			}
 			messages = append(messages, Message{Role: "user", Content: output})
+			onUpdate(output)
 		}
 	}
 	return "", fmt.Errorf("max iterations reached\n")
