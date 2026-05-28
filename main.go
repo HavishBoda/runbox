@@ -3,15 +3,15 @@ package main
 import (
 	"bytes"
 	"context"
-	"fmt"
-	"os"
+	// "fmt"
+	// "os"
 	"time"
 	// "sync"
 
 	"github.com/moby/moby/api/pkg/stdcopy"
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/client"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 )
 
 func runCode(code string) (string, error) {
@@ -77,24 +77,24 @@ func runCode(code string) (string, error) {
 	return stdout.String() + stderr.String(), nil
 }
 
-func main() {
-    godotenv.Load()
+// func main() {
+//     godotenv.Load()
 
-	code needed
-    result, err := runAgent("Calculate the sum of all even numbers between 1 and 100")
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "error: %v\n", err)
-        os.Exit(1)
-    }
+// 	code needed
+//     result, err := runAgent("Calculate the sum of all even numbers between 1 and 100")
+//     if err != nil {
+//         fmt.Fprintf(os.Stderr, "error: %v\n", err)
+//         os.Exit(1)
+//     }
 
-	fmt.Println("Result:", result)
+// 	fmt.Println("Result:", result)
 
-	// factual, no code needed
-	result, err = runAgent("What is the capital of France")
-	if err != nil {
-        fmt.Fprintf(os.Stderr, "error: %v\n", err)
-        os.Exit(1)
-    }
+// 	// factual, no code needed
+// 	result, err = runAgent("What is the capital of France")
+// 	if err != nil {
+//         fmt.Fprintf(os.Stderr, "error: %v\n", err)
+//         os.Exit(1)
+//     }
 
-    fmt.Println("Result:", result)
-}
+//     fmt.Println("Result:", result)
+// }
