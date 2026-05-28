@@ -5,6 +5,8 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
+	"sync"
 
 	"github.com/moby/moby/api/pkg/stdcopy"
 	"github.com/moby/moby/api/types/container"
@@ -12,7 +14,8 @@ import (
 )
 
 func runCode(code string) (string, error) {
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	cli, err := client.New(client.FromEnv)
 	if err != nil {
@@ -74,11 +77,26 @@ func runCode(code string) (string, error) {
 }
 
 func main() {
-	code := `import sys; print("hello stdout"); print("hello stderr", file=sys.stderr)`
-	output, err := runCode(code)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-	fmt.Println(output)
+    codes := []string{
+        `print("execution 1")`,
+        `print("execution 2")`,
+        `print("execution 3")`,
+    }
+
+    var wg sync.WaitGroup
+
+    for _, code := range codes {
+        wg.Add(1)
+        go func(c string) {
+            defer wg.Done()
+            output, err := runCode(c)
+            if err != nil {
+                fmt.Fprintf(os.Stderr, "error: %v\n", err)
+                return
+            }
+            fmt.Print(output)
+        }(code)
+    }
+
+    wg.Wait()
 }
