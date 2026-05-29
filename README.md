@@ -58,6 +58,7 @@ data: 2550
 - **Docker SDK** — programmatic container lifecycle management
 - **Groq (Llama 3.3 70B)** — LLM backend
 - **SSE** — real time streaming
+- **Railway** — cloud deployment
 
 ## Running locally
 
