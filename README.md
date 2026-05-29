@@ -16,6 +16,14 @@ Think of it as a lightweight, self-hostable version of ChatGPT's Code Interprete
 
 **The API** — two endpoints. One returns the final result as JSON. The other streams the agent's progress in real time using SSE so you can watch it think step by step.
 
+## Live Demo
+
+```bash
+curl -X POST https://runbox-production.up.railway.app/v1/task \
+  -H "Content-Type: application/json" \
+  -d '{"task": "your task here"}'
+```
+
 ## API
 
 **POST** `/v1/task` — run a task, get back the result
