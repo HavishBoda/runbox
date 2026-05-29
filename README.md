@@ -77,10 +77,3 @@ GROQ_API_KEY=your_key_here
 ```bash
 go run main.go llm.go agent.go api.go
 ```
-
-## What's next
-
-- Multi-language support (JS, Go)
-- Kubernetes orchestration for concurrent executions at scale
-- Persistent task history
-- Simple UI to submit tasks and watch the agent work
